@@ -24,7 +24,15 @@
 
 <body ng-controller="keyboardCtrl">
 	<div class="text-area" ng-bind="inputedNum"></div>
-	<div ng-keyboard random-status="false" amount="4" auto-finish="true" input-action="inputAction"></div>
+	<div 
+    ng-keyboard 
+    ng-show="showKeyboard" 
+    random-status="false" 
+    amount="6" 
+    auto-finish="true" 
+    input-action="inputAction(data)"
+    finish-action="finishAction()"
+  ></div>
 
 	
   <script type="text/javascript" src="../scripts/angular.min.js"></script>

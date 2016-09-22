@@ -7,7 +7,7 @@ app.run(['$templateCache', function($templateCache) {
 	);
 }]);
 
-app.directive('ngKeyboard', function() {
+app.directive('ngKeyboard', ["$parse", function($parse) {
 	return {
 		restrict: 'AEC',
 		templateUrl: 'template/ngKeyboard.html',
@@ -40,7 +40,19 @@ app.directive('ngKeyboard', function() {
 
 		  // $scope.checkboxStatus = false;
 
+		  console.log(scope.inputAction);
 		  initKeyboard();
+
+		  scope.safeApply = function(fn) {
+		  	var phase = this.$root.$$phase;
+		  	if (phase == '$apply' || phase == '$digest') {
+		  		if (fn && (typeof (fn) === 'function')) {
+		  			fn();
+		  		}
+		  	} else {
+		  		this.$apply(fn);
+		  	}
+		  };
 
 		  function randomKeys(status) {
 		    var keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -109,7 +121,14 @@ app.directive('ngKeyboard', function() {
 		    if (canInput()) {
 		      keysArray.push(domValue);
 		      var inputedKeys = keysArray.join(' ');
-		      scope.inputAction(inputedKeys);
+		      // scope.safeApply(function() {
+			     //  scope.inputAction(
+			     //  	{data: inputedKeys}
+			     //  );		      	
+		      // });
+			      scope.inputAction({
+			      	data: inputedKeys
+			      });
 		      if (!canInput() && scope.autoFinish) {
 		        scope.finishAction();
 		      }
@@ -129,7 +148,7 @@ app.directive('ngKeyboard', function() {
 	}
 
 
-});
+}]);
 
 
 
