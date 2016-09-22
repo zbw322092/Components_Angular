@@ -20,13 +20,19 @@ app.directive('ngKeyboard', function() {
 			randomStatus: "@", // whether generate random layout keyboard
 			amount: "@",
 			autoFinish: "@",
-			inputAction: '&',
-			finishAction: '&',
+			inputAction: "&",
+			finishAction: "&",
 		},
 		link: function(scope, element, attrs) {
 
 		  var keysArray = [];
-		  scope.autoFinish = false;
+
+		  // since scope.randomStatus is a string value("false"), which will be treated as truly value. So we have to convert it
+		  // into boolean value using following expression
+		  scope.randomStatus = scope.randomStatus === 'true' ? true : false;
+
+		  scope.autoFinish = scope.randomStatus === 'true' ? true : false;
+
 		  // cannot write like this, since autoFinishStatus will be signed when js file loaded and will not change
 		  // when checkbox is checked or unchecked
 		  // var autoFinishStatus = document.getElementById('auto-finish').checked;
