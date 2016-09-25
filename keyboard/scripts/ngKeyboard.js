@@ -40,7 +40,6 @@ app.directive('ngKeyboard', ["$parse", function($parse) {
 
       // $scope.checkboxStatus = false;
 
-      console.log(scope.inputAction);
       initKeyboard();
 
       // scope.safeApply = function(fn) {

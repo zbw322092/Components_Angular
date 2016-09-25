@@ -6,28 +6,12 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
 </head>
 
-<!-- <body ng-controller="keyboardCtrl">
-  <div class="text-area" ng-bind="inputedKeys"></div>
-  <button class="show-key-board" ng-click="toggleKeyboard()">Show Keyboard</button>
-  <input class="key-amount" placeholder="Set the amount keys can be inputted" ng-model="amount"></input>
-  <input class="common-checkbox" id="auto-finish" type="checkbox" ng-model="checkboxStatus"></input>
-  <label class="auto-finish" for="auto-finish">Auto Finish</label>
-  <br>
-  <input class="common-checkbox" id="random-keyboard" type="checkbox" ng-model="checkboxStatus2"></input>
-  <label class="random-keyboard" for="random-keyboard">Random Keyboard</label>
-  <div class="keyboard" ng-show="showIt">
-    <button ng-class="key.keyClass" ng-repeat="key in keysLayout" ng-click="key.func()" ng-bind="key.value"></button>
-  </div>
-  <script type="text/javascript" src="../scripts/angular.min.js"></script>
-  <script type="text/javascript" src="../controllers/keyBoardCtrl.js"></script>
-</body> -->
-
 <body ng-controller="keyboardCtrl">
 	<div class="text-area" ng-bind="inputedNum"></div>
 	<div 
     ng-keyboard 
     ng-show="showKeyboard" 
-    random-status="false" 
+    random-status="true" 
     amount="6" 
     auto-finish="true" 
     input-action="inputAction(data)"
