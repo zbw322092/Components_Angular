@@ -12,14 +12,20 @@ app.controller('deleteInputCtrl', ['$scope', '$timeout', function ($scope, $time
   // }
 
   var inputDom = document.getElementsByClassName('input-field');
-  var wrappedDom = angular.element(inputDom);
+  var wrappedInputDom = angular.element(inputDom);
   console.log(inputDom);
-  console.log(wrappedDom);
-  console.log(wrappedDom === inputDom); // false
-  console.log(wrappedDom == inputDom); // false
-  // wrappedDom的__proto__里面包含了jqLite中定义方法，而inputDOM中没有，它的__proto__是HTMLCollection
+  console.log(wrappedInputDom);
+  console.log(wrappedInputDom === inputDom); // false
+  console.log(wrappedInputDom == inputDom); // false
+  // wrappedInputDom的__proto__里面包含了jqLite中定义方法，而inputDOM中没有，它的__proto__是HTMLCollection
 
-  wrappedDom.on('keyup', function () {
+  var closeDom = document.getElementsByClassName('close-icon');
+  var wrappedCloseDom = angular.element(closeDom);
+  console.log(wrappedCloseDom);
+
+
+
+  wrappedInputDom.on('keyup focus', function () {
     $timeout(function () {
       if ($scope.inputValue) {
         $scope.showClose = true;
@@ -29,22 +35,25 @@ app.controller('deleteInputCtrl', ['$scope', '$timeout', function ($scope, $time
     });
   });
 
+  wrappedInputDom.on('blur', function () {
+    $timeout(function () {
+      $scope.showClose = false;
+    })
+  });
 
-  // wrappedDom.on('keyup', function () {
-  //   if ($scope.inputValue) {
-  //     $scope.showClose = true;
-  //     console.log($scope.showClose);
-  //   } else {
-  //     $scope.showClose = false;
-  //   }
-
-	 //  console.log($scope.inputValue);
-	 //  console.log($scope.showClose);
+  // another method which can reach the same goal of using $timeout is using $apply
+  // wrappedInputDom.on('blur', function () {
+  //   $scope.$apply($scope.showClose = false);
   // });
+  // $scope.$apply works fine until I have to add clearInput function to the close icon,
+  // since onblur event will be triggeed firstly and the close icon will be hidden, the ng-click 
+  // function will not be triggered and the inputted content will not be deleted. However, the timeout 
+  // will solve all of the problem.
 
-  // wrappedDom.on('blur', function () {
-
-  // })
+  $scope.clearInput = function() {
+  	$scope.inputValue = '';
+  	$scope.showClose = false;
+  }
 
 }]);
 
