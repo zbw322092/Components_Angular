@@ -19,18 +19,38 @@ app.controller('deleteInputCtrl', ['$scope', '$timeout', function ($scope, $time
   console.log(wrappedDom == inputDom); // false
   // wrappedDom的__proto__里面包含了jqLite中定义方法，而inputDOM中没有，它的__proto__是HTMLCollection
 
-  wrappedDom.on('keyup focus', function () {
-  	$timeout(function() {
-	  	if($scope.inputValue) {
-	  		$scope.showClose = true;
-	  	} else {
-	  		$scope.showClose = false;
-	  	}
-  	});
+  wrappedDom.on('keyup', function () {
+    $timeout(function () {
+      if ($scope.inputValue) {
+        $scope.showClose = true;
+      } else {
+        $scope.showClose = false;
+      }
+    });
   });
+
+
+  // wrappedDom.on('keyup', function () {
+  //   if ($scope.inputValue) {
+  //     $scope.showClose = true;
+  //     console.log($scope.showClose);
+  //   } else {
+  //     $scope.showClose = false;
+  //   }
+
+	 //  console.log($scope.inputValue);
+	 //  console.log($scope.showClose);
+  // });
 
   // wrappedDom.on('blur', function () {
 
   // })
 
 }]);
+
+
+
+
+
+
+
