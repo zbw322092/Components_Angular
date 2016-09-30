@@ -14,7 +14,7 @@ app.directive('deleteInput', ['$compile', function($compile) {
 		// 这里不能用template的方式，因为这个组件想把close按钮方案input tag的后面，这里就需要用到了jQuery里面的
 		// after()方法
 		template: '',
-		link: function(anything, element, attr){
+		link: function(scope, element, attr){
 			// 因为要定义clearInput，但是通过angular.element定义的dom上面的属性没有办法通过directive link中的scope
 			// element或者attr来取到，所以就要用到下面的$compile
 			// offical docs对$compile的描述是Compiles an HTML string or DOM into a template and produces a 
@@ -25,7 +25,7 @@ app.directive('deleteInput', ['$compile', function($compile) {
 			// var closeIconElement = 
 			// 	angular.element('<span class="close-icon" clickable ng-show="showClose"></span>');
 			
-			var closeIconElement2 = $compile('<span class="close-icon" clickable ng-click="clearInput()"></span>')(anything);
+			var closeIconElement2 = $compile('<span class="close-icon" clickable ng-show="showClose" ng-click="clearInput()"></span>')(scope);
 
 			element.after(closeIconElement2);
 			
@@ -33,8 +33,9 @@ app.directive('deleteInput', ['$compile', function($compile) {
 			console.log(closeIconElement2);
 			// console.log(element);
 
-			anything.clearInput = function() {
+			scope.clearInput = function() {
 				element.val("");
+				scope.showClose = false
 			}
 
 			// closeIconElement.on('click', function() {
@@ -64,6 +65,19 @@ app.directive('deleteInput', ['$compile', function($compile) {
 			// 	// val()方法比较方便。
 			// 	// element[0].value = '';
 			// });
+
+			element.on('focus keyup', function() {
+				if(element.val()) {
+					scope.$apply(scope.showClose = true);
+				} else {
+					scope.$apply(scope.showClose = false);
+				}
+			});
+
+			element.on('blur', function() {
+				scope.$apply(scope.showClose = false);
+			});
+
 
 		}
 	}
