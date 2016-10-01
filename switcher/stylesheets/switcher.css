@@ -1,3 +1,7 @@
+.switcher {
+	height: 50px;
+}
+
 /* 这里使用到了CSS后代选择器的知识(descendant selector) */
 .switcher-label {
 	font-size: 20px;
@@ -17,6 +21,10 @@
 
 .switcher.active .back {
 	color: #4ecb32;
+}
+
+.disabled {
+	opacity: .7;
 }
 
 
