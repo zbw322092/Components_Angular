@@ -1,4 +1,4 @@
-// 这里使用到了CSS后代选择器的知识(descendant selector)
+/* 这里使用到了CSS后代选择器的知识(descendant selector) */
 .switcher-label {
 	font-size: 20px;
 }
@@ -30,7 +30,7 @@
 	background-color: grey;
 }
 
-// 这里用到了:before和:after选择器的知识
+/* 这里用到了:before和:after选择器的知识 */
 .switcher-line:before {
 	content: '';
 	position: absolute;
@@ -56,7 +56,7 @@
 	background-color: #fff;
 	border-radius: 100%;
 
-	// 这里使用到了transition的知识
+	/* 这里使用到了transition的知识 */
   -webkit-transition: transform 0ms ease;
   transition: transform 0ms ease;
 
@@ -65,7 +65,7 @@
 }
 
 
-// 这里使用到了transform，translate的知识
+/* 这里使用到了transform，translate的知识 */
 .switcher.active .switcher-line:after {
   left: 100%;
   -webkit-transform: translate(-100%, -50%);
