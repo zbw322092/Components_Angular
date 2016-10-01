@@ -1,3 +1,27 @@
+// 这里使用到了CSS后代选择器的知识(descendant selector)
+.switcher-label {
+	font-size: 20px;
+}
+
+.front {
+	color: red;
+}
+
+.switcher.active .front {
+	color: #000000;
+}
+
+.back {
+	color: #000000;
+}
+
+.switcher.active .back {
+	color: #4ecb32;
+}
+
+
+
+
 .switcher-line {
 	position: relative;
 	display: inline-block;
@@ -6,6 +30,7 @@
 	background-color: grey;
 }
 
+// 这里用到了:before和:after选择器的知识
 .switcher-line:before {
 	content: '';
 	position: absolute;
@@ -22,14 +47,36 @@
 	content: '';
 	position: absolute;
 	top: 50%;
+	left: 0;
+	-webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 	display: block;
 	width: 20px;
 	height: 20px;
 	background-color: #fff;
 	border-radius: 100%;
+
+	// 这里使用到了transition的知识
+  -webkit-transition: transform 0ms ease;
+  transition: transform 0ms ease;
+
+  -webkit-transition: left 300ms ease;
+  transition: left 300ms ease;
+}
+
+
+// 这里使用到了transform，translate的知识
+.switcher.active .switcher-line:after {
+  left: 100%;
+  -webkit-transform: translate(-100%, -50%);
+  transform: translate(-100%, -50%);
 }
 
 .inner-input {
 	display: none;
 }
+
+
+
+
+
