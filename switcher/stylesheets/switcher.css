@@ -1,0 +1,6 @@
+.switcher-line {
+	display: inline-block;
+	width: 200px;
+	height: 50px;
+	background-color: grey;
+}
