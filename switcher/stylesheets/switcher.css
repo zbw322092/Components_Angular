@@ -5,6 +5,7 @@
 /* 这里使用到了CSS后代选择器的知识(descendant selector) */
 .switcher-label {
 	font-size: 20px;
+	vertical-align: middle;
 }
 
 .front {
@@ -33,9 +34,9 @@
 .switcher-line {
 	position: relative;
 	display: inline-block;
-	width: 200px;
+	width: 50px;
 	height: 50px;
-	background-color: grey;
+	vertical-align: middle;
 }
 
 /* 这里用到了:before和:after选择器的知识 */
@@ -46,9 +47,11 @@
   transform: translateY(-50%);
 	display: block;
 	width: 100%;
-	height: 10px;
+	height: 5px;
 	background-color: orange;
 	vertical-align: middle;
+
+	border-radius: 4px;
 }
 
 .switcher-line:after {
@@ -59,17 +62,16 @@
 	-webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 	display: block;
-	width: 20px;
-	height: 20px;
+	width: 10px;
+	height: 10px;
 	background-color: #fff;
 	border-radius: 100%;
 
-	/* 这里使用到了transition的知识 */
-  -webkit-transition: transform 0ms ease;
-  transition: transform 0ms ease;
+	background-color: grey;
 
-  -webkit-transition: left 300ms ease;
-  transition: left 300ms ease;
+	/* 这里使用到了transition的知识 */
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
 }
 
 
@@ -83,6 +85,19 @@
 .inner-input {
 	display: none;
 }
+
+/* adjacent sibling selector */
+.switcher+input {
+	margin-top: 40px;
+}
+
+
+
+
+
+
+
+
 
 
 
