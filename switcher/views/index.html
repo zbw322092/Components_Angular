@@ -12,7 +12,7 @@
   <!-- 这里要熟悉在angular input[checkbox]中，ng-model的值是随着checkbox被check与否自动赋予true/false的
   这里还用到了一个很不错的思想，就是"用一个状态来统领整体样式"，也就是说，我们在最外层的div上绑定个ng-class，这个class
   由checkbox的状态来决定，然后通过CSS后代选择器的方式来给子集赋予不同的样式 -->
-  <div class="switcher" ng-class="{active:switcherStatus, disabled: disableStatus}">
+ <!--  <div class="switcher" ng-class="{active:switcherStatus, disabled: disableStatus}">
     <span class="switcher-label front" ng-click="turnOn()">Turn On</span>
       <label class="switcher-line">
         <input 
@@ -27,7 +27,9 @@
   </div>
 
   <input id="disable-checkbox" type="checkbox" ng-model="disableStatus"></input>
-  <label for="disable-checkbox">Disable Switcher</label>
+  <label for="disable-checkbox">Disable Switcher</label> -->
+
+  <switcher></switcher>
 	
   <script type="text/javascript" src="../scripts/angular.min.js"></script>
   <script type="text/javascript" src="../controllers/switcherCtrl.js"></script>
