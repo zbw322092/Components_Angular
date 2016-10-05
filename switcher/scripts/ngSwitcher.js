@@ -36,8 +36,27 @@ app.directive('switcher', [ '$sce', function ($sce) {
     },
     link: function (scope, element, attr) {
 
-      scope.trueValue = true; 
-      scope.falseValue = false;
+      // scope.trueValue = true;
+      // scope.falseValue = false;
+
+      var defaultValue = {
+        trueValue: true,
+        falseValue: false,
+        disableStatus: false,
+        switcherFrontSign: '<span>Front</span>',
+        switcherBackSign: '<span>Back</span>'
+      }
+
+      // 从下面的log中可以看出来，scope是一个object,我们定义在scope上面的变量都是这个object里面的元素
+      console.log(scope);
+      console.log(scope.change);
+      console.log(scope.falseValue);
+
+      angular.forEach(defaultValue, function(value, key) {
+        if(!angular.isDefined(scope[key])) {
+          scope[key] = value;
+        }
+      });
 
       scope.switcherTurn = function (value) {
         if(scope.disableStatus || value == scope.switcherStatus) return
