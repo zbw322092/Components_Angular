@@ -32,8 +32,14 @@
   <switcher 
     turn-on="turnOn()" 
     switcher-back-sign="<span>Turn Off</span>"
-    switcher-front-sign="<span>Turn On</span>">
+    switcher-front-sign="<span>Turn On</span>"
+    disable-status="disableValue"
+  >
   </switcher>
+
+  <input type="checkbox" id="checkToDisable" ng-model="disableValue"></input>
+  <label for="checkToDisable">Disable</label>
+
 	
   <script type="text/javascript" src="../scripts/angular.min.js"></script>
   <script type="text/javascript" src="../controllers/switcherCtrl.js"></script>

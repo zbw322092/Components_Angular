@@ -27,9 +27,9 @@ app.directive('switcher', [ '$sce', function ($sce) {
     restrict: 'E',
     templateUrl: 'switcher.html',
     scope: {
-      // turnOn: '&'
       switcherFrontSign: '@',
-      switcherBackSign: '@'
+      switcherBackSign: '@',
+      disableStatus: '='
     },
     link: function (scope, element, attr) {
 
