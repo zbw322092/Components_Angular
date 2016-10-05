@@ -29,9 +29,14 @@ app.directive('switcher', [ '$sce', function ($sce) {
     scope: {
       switcherFrontSign: '@',
       switcherBackSign: '@',
-      disableStatus: '='
+      disableStatus: '=',
+      trueValue: '@',
+      falseValue: '@',
     },
     link: function (scope, element, attr) {
+
+      scope.trueValue = true; 
+      scope.falseValue = false;
 
       scope.switcherTurn = function (value) {
         if (!scope.disableStatus) {
@@ -43,6 +48,14 @@ app.directive('switcher', [ '$sce', function ($sce) {
 
       scope.trustAsHtml = function(value) {
         return $sce.trustAsHtml(value);
+      }
+
+      scope.changeFunc = function() {
+        var newValue = scope.switcherStatus ? scope.trueValue : scope.falseValue;
+        var oldValue = !scope.switcherStatus ? scope.trueValue : scope.falseValue;
+
+        console.log(scope.switcherStatus);
+        console.log('was: ' + oldValue + '          ' + 'now: '+ newValue);
       }
 
 

@@ -4,8 +4,9 @@ app.controller('switcherCtrl', ['$scope', '$sce', function($scope, $sce) {
 	console.log($scope.switcherStatus);
 
 	$scope.changeFunc = function() {
-		console.log($scope.switcherStatus);
+		console.log('ok');
 	}
 
+	// $scope.disableValue = true;
 
 }]);
