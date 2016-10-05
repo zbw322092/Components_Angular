@@ -29,8 +29,7 @@
   <input id="disable-checkbox" type="checkbox" ng-model="disableStatus"></input>
   <label for="disable-checkbox">Disable Switcher</label> -->
 
-  <switcher 
-    turn-on="turnOn()" 
+  <switcher
     switcher-back-sign="<span>Turn Off</span>"
     switcher-front-sign="<span>Turn On</span>"
     disable-status="disableValue"
@@ -43,6 +42,17 @@
   <input type="checkbox" id="checkToDisable" ng-model="disableValue"></input>
   <label for="checkToDisable">Disable</label>
 
+
+  <switcher 
+    class="strong-switcher"
+    switcher-back-sign="<span>One</span>"
+    switcher-front-sign="<span>Second</span>"
+    disable-status="disableValue"
+    change="changeFunc(oldValue, newValue)"
+    true-value="It is the first one"
+    false-value="It is the second one"
+  >
+  </switcher>
 	
   <script type="text/javascript" src="../scripts/angular.min.js"></script>
   <script type="text/javascript" src="../controllers/switcherCtrl.js"></script>

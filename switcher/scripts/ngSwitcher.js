@@ -70,7 +70,6 @@ app.directive('switcher', [ '$sce', function ($sce) {
           // 一定要是以object的类型作为形参
           scope.change({ newValue: newValue, oldValue: oldValue });
         }
-
       }
 
       scope.trustAsHtml = function(value) {

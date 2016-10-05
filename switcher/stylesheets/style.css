@@ -1,0 +1,16 @@
+// overwrite directive default styles
+.strong-switcher .switcher-line:before {
+	height: 20px;
+	background-color: red;
+	border-radius: 10px;
+}
+
+.strong-switcher .switcher-line:after {
+	background-color: #ffffff;
+	width: 20px;
+  height: 20px;
+}
+
+.strong-switcher .active .switcher-line:before {
+	background-color: green;
+}
