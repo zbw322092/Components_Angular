@@ -1,4 +1,4 @@
-// overwrite directive default styles
+/* overwrite directive default styles */
 .strong-switcher .switcher-line:before {
 	height: 20px;
 	background-color: red;
