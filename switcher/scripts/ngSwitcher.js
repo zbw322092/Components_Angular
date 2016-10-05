@@ -32,6 +32,7 @@ app.directive('switcher', [ '$sce', function ($sce) {
       disableStatus: '=',
       trueValue: '@',
       falseValue: '@',
+      change: '&'
     },
     link: function (scope, element, attr) {
 
@@ -39,11 +40,18 @@ app.directive('switcher', [ '$sce', function ($sce) {
       scope.falseValue = false;
 
       scope.switcherTurn = function (value) {
-        if (!scope.disableStatus) {
-          if (value != scope.switcherStatus) {
-            scope.switcherStatus = value;
-          }
+        if(scope.disableStatus || value == scope.switcherStatus) return
+        scope.switcherStatus = value;
+
+        var newValue = scope.switcherStatus ? scope.trueValue : scope.falseValue;
+        var oldValue = !scope.switcherStatus ? scope.trueValue : scope.falseValue;
+
+        // 进行一个类型的验证
+        if(angular.isFunction(scope.change)) {
+          // 一定要是以object的类型作为形参
+          scope.change({ newValue: newValue, oldValue: oldValue });
         }
+
       }
 
       scope.trustAsHtml = function(value) {
@@ -54,8 +62,11 @@ app.directive('switcher', [ '$sce', function ($sce) {
         var newValue = scope.switcherStatus ? scope.trueValue : scope.falseValue;
         var oldValue = !scope.switcherStatus ? scope.trueValue : scope.falseValue;
 
-        console.log(scope.switcherStatus);
-        console.log('was: ' + oldValue + '          ' + 'now: '+ newValue);
+        // 进行一个类型的验证
+        if(angular.isFunction(scope.change)) {
+          // 一定要是以object的类型作为形参
+          scope.change({ newValue: newValue, oldValue: oldValue });
+        }
       }
 
 
