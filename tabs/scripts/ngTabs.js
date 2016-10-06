@@ -1,10 +1,21 @@
-var i = 0,
-  headerIndex = 0;
-var p = 0,
-  bodyIndex = 0;
-var headerObject = {};
-var bodyObject = {};
+function tabController($scope) {
+  this.i = 0;
+  this.headerIndex = 0;
+  this.p = 0,
+  this.bodyIndex = 0;
+  this.headerObject = {}, 
+  this.bodyObject = {};
 
+  // 这样写只是单纯的传入了值，并没有传入变量，所以并不会储存值。
+  // this.tabIndex = function(indexType, index) {
+  //   return indexType = ++index;
+  // }
+  
+  this.tabHeaderIndex = function() {
+    return this.headerIndex = ++this.i;
+  }
+
+}
 
 app.directive('ngTabs', function () {
   return {
@@ -12,10 +23,8 @@ app.directive('ngTabs', function () {
       defaultActivedTab: '@'
     },
     restrict: 'EAC',
+    controller: ['$scope', tabController],
     link: function (scope, element, attrs) {
-      console.log(scope);
-      console.log(element);
-      console.log(attrs);
 
       var defaultActivedTab = scope.defaultActivedTab ? scope.defaultActivedTab : "1";
 
@@ -43,16 +52,13 @@ app.directive('ngTabsHeader', function () {
   return {
     scope: false,
     restrict: 'EAC',
-    link: function (scope, element, attrs) {
-      console.log(scope);
-      console.log(element);
-      console.log(attrs);
-
-      function tabHeaderIndex() {
-        return headerIndex = ++i;
-      }
-      tabHeaderIndex();
-      console.log('header index: ' + headerIndex);
+    require: '^ngTabs',
+    link: function (scope, element, attrs, controller) {
+      
+      console.log(controller);
+      controller.tabHeaderIndex();
+      // controller.tabIndex(controller.headerIndex, controller.i);
+      
 
       function initTabHeader() {
         headerObject[headerIndex] = {
@@ -61,13 +67,10 @@ app.directive('ngTabsHeader', function () {
         };
       }
       initTabHeader();
-      console.log(headerObject);
 
       attrs['index'] = headerIndex;
 
       element.on('click', function () {
-        console.log(attrs);
-        console.log(attrs.index);
 
         angular.forEach(headerObject, function (value, key) {
           if (value.headerIndex === attrs.index) {
@@ -86,9 +89,6 @@ app.directive('ngTabsHeader', function () {
         });
 
       })
-
-      console.log(element);
-
     }
   }
 });
@@ -98,17 +98,13 @@ app.directive('ngTabsBody', function () {
   return {
     scope: false,
     restrict: 'EAC',
+    require: '^ngTabs',
     link: function (scope, element, attrs) {
-      console.log(scope);
-      console.log(element);
-      console.log(attrs);
 
       function tabBodyIndex() {
         return bodyIndex = ++p;
       }
       tabBodyIndex();
-      console.log('body index: ' + bodyIndex);
-
       angular.element(element).addClass('tab-body')
 
       function initTabBody() {
@@ -119,8 +115,6 @@ app.directive('ngTabsBody', function () {
       }
 
       initTabBody();
-      console.log(bodyObject);
-
     }
   }
 });

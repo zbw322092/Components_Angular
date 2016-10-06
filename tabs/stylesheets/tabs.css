@@ -18,9 +18,6 @@
   overflow: hidden;
 }
 
-.active-line {
-	border-bottom: 2px solid #2ebd59;
-}
 
 /* 有个问题，就是如果给<li>设置border-bottom，那么这个line会超出<li>1px，这1px会影响到下面文字的排布
 有两个解决方案，一个是给里面的<a>设置padding的方式来放置文字，然后给<a>设置border-bottom
@@ -28,4 +25,8 @@
 .header-list li a {
 	color: black;
 	text-decoration: none;
+}
+
+.body-list {
+	margin: 4px;
 }
