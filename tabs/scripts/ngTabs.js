@@ -1,6 +1,18 @@
 var i = 0, headerIndex = 0;
 var p = 0, bodyIndex = 0;
 
+app.directive('ngTabs', function() {
+  return {
+    scope: false,
+    restrict: 'EAC',
+    link: function(scope, element, attrs) {
+      console.log(scope);
+      console.log(element);
+      console.log(attrs);
+    }
+  }
+});
+
 app.directive('ngTabsHeader', function() {
   return {
     scope: false,
