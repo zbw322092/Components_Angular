@@ -1,0 +1,24 @@
+.header-list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+  list-style: none;
+}
+
+.header-list li {
+	width: 25%;
+	height: 40px;
+	line-height: 40px;
+  float: left;
+  list-style: none;
+  font-size: 20px;
+  text-align: center;
+  border-bottom: 2px solid #2ebd59;
+	/* 这样可以保证tab上面字太长的时候不出溢出元素框显示 */
+  overflow: hidden;
+}
+
+.header-list li a {
+	color: black;
+	text-decoration: none;
+}
