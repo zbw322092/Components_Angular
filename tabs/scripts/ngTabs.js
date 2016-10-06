@@ -1,23 +1,49 @@
-var i = 0, headerIndex = 0;
-var p = 0, bodyIndex = 0;
+var i = 0,
+  headerIndex = 0;
+var p = 0,
+  bodyIndex = 0;
+var headerObject = {};
+var bodyObject = {};
 
-app.directive('ngTabs', function() {
+
+app.directive('ngTabs', function () {
   return {
-    scope: false,
+    scope: {
+      defaultActivedTab: '@'
+    },
     restrict: 'EAC',
-    link: function(scope, element, attrs) {
+    link: function (scope, element, attrs) {
       console.log(scope);
       console.log(element);
       console.log(attrs);
+
+      var defaultActivedTab = scope.defaultActivedTab ? scope.defaultActivedTab : "1";
+
+      angular.forEach(headerObject, function (value, key) {
+        if (value.headerIndex == defaultActivedTab) {
+          angular.element(value.headerElement).addClass('active-line');
+        } else {
+          angular.element(value.headerElement).removeClass('active-line');
+        }
+      });
+
+      angular.forEach(bodyObject, function (value, key) {
+        if (value.bodyIndex == defaultActivedTab) {
+          angular.element(value.bodyElement).addClass('show-tab-body');
+        } else {
+          angular.element(value.bodyElement).removeClass('show-tab-body');
+        }
+      });
+
     }
   }
 });
 
-app.directive('ngTabsHeader', function() {
+app.directive('ngTabsHeader', function () {
   return {
     scope: false,
     restrict: 'EAC',
-    link: function(scope, element, attrs) {
+    link: function (scope, element, attrs) {
       console.log(scope);
       console.log(element);
       console.log(attrs);
@@ -28,24 +54,51 @@ app.directive('ngTabsHeader', function() {
       tabHeaderIndex();
       console.log('header index: ' + headerIndex);
 
-      var headerObject = {};
+      function initTabHeader() {
+        headerObject[headerIndex] = {
+          headerIndex: headerIndex,
+          headerElement: element
+        };
+      }
+      initTabHeader();
+      console.log(headerObject);
 
-      element.on('click', function(headerIndex) {
-        if (bodyIndex === headerIndex) {
+      attrs['index'] = headerIndex;
 
-        }
-      });
+      element.on('click', function () {
+        console.log(attrs);
+        console.log(attrs.index);
+
+        angular.forEach(headerObject, function (value, key) {
+          if (value.headerIndex === attrs.index) {
+            angular.element(value.headerElement).addClass('active-line');
+          } else {
+            angular.element(value.headerElement).removeClass('active-line');
+          }
+        });
+
+        angular.forEach(bodyObject, function (value, key) {
+          if (value.bodyIndex === attrs.index) {
+            angular.element(value.bodyElement).addClass('show-tab-body');
+          } else {
+            angular.element(value.bodyElement).removeClass('show-tab-body');
+          }
+        });
+
+      })
+
+      console.log(element);
 
     }
   }
 });
 
 
-app.directive('ngTabsBody', function() {
+app.directive('ngTabsBody', function () {
   return {
     scope: false,
     restrict: 'EAC',
-    link: function(scope, element, attrs) {
+    link: function (scope, element, attrs) {
       console.log(scope);
       console.log(element);
       console.log(attrs);
@@ -56,7 +109,17 @@ app.directive('ngTabsBody', function() {
       tabBodyIndex();
       console.log('body index: ' + bodyIndex);
 
-      var bodyObject = {};
+      angular.element(element).addClass('tab-body')
+
+      function initTabBody() {
+        bodyObject[bodyIndex] = {
+          bodyIndex: bodyIndex,
+          bodyElement: element
+        };
+      }
+
+      initTabBody();
+      console.log(bodyObject);
 
     }
   }

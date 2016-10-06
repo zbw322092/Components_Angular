@@ -8,50 +8,47 @@
 </head>
 
 <body ng-controller="tabsCtrl">
+  <script type="text/javascript" src="../scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../controllers/tabsCtrl.js"></script>
+  <script type="text/javascript" src="../scripts/ngTabs.js"></script>
 
-  <div ng-tabs>
+
+  <div ng-tabs default-actived-tab="2">
     <ul class="header-list">
-      <li ng-tabs-header ng-click="showTabContent('one')" ng-class="{'active-line': defaultContentDisplay.tabOneContent}">
-        <a href="#" >T1</a>
+      <li ng-tabs-header>
+        <a href="#" ng-click="$event.preventDefault()">T1</a>
       </li>
 
-      <li ng-tabs-header ng-click="showTabContent('two')" ng-class="{'active-line': defaultContentDisplay.tabTwoContent}">
-        <a href="#" >T2</a>
+      <li ng-tabs-header>
+        <a href="#" ng-click="$event.preventDefault()">T2</a>
       </li>
 
-      <li ng-tabs-header ng-click="showTabContent('three')" ng-class="{'active-line': defaultContentDisplay.tabThreeContent}">
-        <a href="#" >T3</a>
+      <li ng-tabs-header>
+        <a href="#" ng-click="$event.preventDefault()">T3</a>
       </li>
 
-      <li ng-tabs-header ng-click="showTabContent('four')" ng-class="{'active-line': defaultContentDisplay.tabFourContent}">
-        <a href="#">T4</a>
-      </li>    
+      <li ng-tabs-header>
+        <a href="#" ng-click="$event.preventDefault()">T4</a>
+      </li>      
+    </ul>
 
-    </ul>  
-
-    <div ng-tabs-body ng-show="defaultContentDisplay.tabOneContent">
+    <div ng-tabs-body>
       test1 test1 test1 test1 test1 test1 test1 test1 test1 test1 test1 test1 test1 test1 test1 test1   
     </div>
 
-    <div ng-tabs-body ng-show="defaultContentDisplay.tabTwoContent">
+    <div ng-tabs-body>
       test2 test2 test2 test2 test2 test2 test2 test2 test2 test2 test2 test2 test2 test2 test2 test2   
     </div>
 
-    <div ng-tabs-body ng-show="defaultContentDisplay.tabThreeContent">
+    <div ng-tabs-body>
       test3 test3 test3 test3 test3 test3 test3 test3 test3 test3 test3 test3 test3 test3 test3 test3   
     </div>
 
-    <div ng-tabs-body ng-show="defaultContentDisplay.tabFourContent">
+    <div ng-tabs-body>
       test4 test4 test4 test4 test4 test4 test4 test4 test4 test4 test4 test4 test4 test4 test4 test4   
     </div>
   </div>
 
-  
-	
-  <script type="text/javascript" src="../scripts/angular.min.js"></script>
-  <script type="text/javascript" src="../controllers/tabsCtrl.js"></script>
-  <script type="text/javascript" src="../scripts/ngTabs.js"></script>
-  
 </body>
 
 </html>

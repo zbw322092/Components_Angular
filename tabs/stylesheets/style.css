@@ -1,0 +1,11 @@
+.tab-body {
+	display: none;
+}
+
+.show-tab-body {
+	display: block;
+}
+
+.active-line {
+	border-bottom: 2px solid #2ebd59;
+}
