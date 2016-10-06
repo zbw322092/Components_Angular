@@ -1,5 +1,6 @@
 .header-list {
 	width: 100%;
+	height: 42px;
 	margin: 0;
 	padding: 0;
   list-style: none;
@@ -13,11 +14,17 @@
   list-style: none;
   font-size: 20px;
   text-align: center;
-  border-bottom: 2px solid #2ebd59;
 	/* 这样可以保证tab上面字太长的时候不出溢出元素框显示 */
   overflow: hidden;
 }
 
+.active-line {
+	border-bottom: 2px solid #2ebd59;
+}
+
+/* 有个问题，就是如果给<li>设置border-bottom，那么这个line会超出<li>1px，这1px会影响到下面文字的排布
+有两个解决方案，一个是给里面的<a>设置padding的方式来放置文字，然后给<a>设置border-bottom
+第二个方案是给外围的<ul>一个高于<li>高度的高 */
 .header-list li a {
 	color: black;
 	text-decoration: none;
