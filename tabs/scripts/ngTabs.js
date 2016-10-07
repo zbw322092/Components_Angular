@@ -83,10 +83,7 @@ app.directive('ngTabsHeader', function () {
     require: '^ngTabs',
     link: function (scope, element, attrs, controller) {
 
-      // console.log(controller);
       controller.tabHeaderIndex();
-      // controller.tabIndex(controller.headerIndex, controller.i);
-
       controller.initTabHeader(element);
       console.log(controller.headerObject);
 
