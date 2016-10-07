@@ -2,17 +2,45 @@ function tabController($scope) {
   this.i = 0;
   this.headerIndex = 0;
   this.p = 0,
-  this.bodyIndex = 0;
-  this.headerObject = {}, 
-  this.bodyObject = {};
+    this.bodyIndex = 0;
+  this.headerObject = {},
+    this.bodyObject = {};
 
   // 这样写只是单纯的传入了值，并没有传入变量，所以并不会储存值。
   // this.tabIndex = function(indexType, index) {
   //   return indexType = ++index;
   // }
-  
-  this.tabHeaderIndex = function() {
+
+  this.tabHeaderIndex = function () {
     return this.headerIndex = ++this.i;
+  }
+
+  this.initTabHeader = function (element) {
+    this.headerObject[this.headerIndex] = {
+      headerIndex: this.headerIndex,
+      headerElement: element
+    }
+  }
+
+  this.tabBodyIndex = function () {
+    return this.bodyIndex = ++this.p;
+  }
+
+  this.initTabBody = function (element) {
+    this.bodyObject[this.bodyIndex] = {
+      bodyIndex: this.bodyIndex,
+      bodyElement: element
+    }
+  }
+
+  this.showActiveFunc = function (object, indexName, ElementName, className, activeValue) {
+    angular.forEach(object, function (value, key) {
+      if (value[indexName] == activeValue) {
+        angular.element(value[ElementName]).addClass(className);
+      } else {
+        angular.element(value[ElementName]).removeClass(className);
+      }
+    });
   }
 
 }
@@ -24,25 +52,25 @@ app.directive('ngTabs', function () {
     },
     restrict: 'EAC',
     controller: ['$scope', tabController],
-    link: function (scope, element, attrs) {
+    link: function (scope, element, attrs, controller) {
 
       var defaultActivedTab = scope.defaultActivedTab ? scope.defaultActivedTab : "1";
 
-      angular.forEach(headerObject, function (value, key) {
-        if (value.headerIndex == defaultActivedTab) {
-          angular.element(value.headerElement).addClass('active-line');
-        } else {
-          angular.element(value.headerElement).removeClass('active-line');
-        }
-      });
+      controller.showActiveFunc(
+        controller.headerObject,
+        'headerIndex',
+        'headerElement',
+        'active-line',
+        defaultActivedTab
+      );
 
-      angular.forEach(bodyObject, function (value, key) {
-        if (value.bodyIndex == defaultActivedTab) {
-          angular.element(value.bodyElement).addClass('show-tab-body');
-        } else {
-          angular.element(value.bodyElement).removeClass('show-tab-body');
-        }
-      });
+      controller.showActiveFunc(
+        controller.bodyObject,
+        'bodyIndex',
+        'bodyElement',
+        'show-tab-body',
+        defaultActivedTab
+      );
 
     }
   }
@@ -54,41 +82,36 @@ app.directive('ngTabsHeader', function () {
     restrict: 'EAC',
     require: '^ngTabs',
     link: function (scope, element, attrs, controller) {
-      
-      console.log(controller);
+
+      // console.log(controller);
       controller.tabHeaderIndex();
       // controller.tabIndex(controller.headerIndex, controller.i);
-      
 
-      function initTabHeader() {
-        headerObject[headerIndex] = {
-          headerIndex: headerIndex,
-          headerElement: element
-        };
-      }
-      initTabHeader();
+      controller.initTabHeader(element);
+      console.log(controller.headerObject);
 
-      attrs['index'] = headerIndex;
+      attrs['index'] = controller.headerIndex;
+
 
       element.on('click', function () {
 
-        angular.forEach(headerObject, function (value, key) {
-          if (value.headerIndex === attrs.index) {
-            angular.element(value.headerElement).addClass('active-line');
-          } else {
-            angular.element(value.headerElement).removeClass('active-line');
-          }
-        });
+        controller.showActiveFunc(
+          controller.headerObject,
+          'headerIndex',
+          'headerElement',
+          'active-line',
+          attrs.index
+        );
 
-        angular.forEach(bodyObject, function (value, key) {
-          if (value.bodyIndex === attrs.index) {
-            angular.element(value.bodyElement).addClass('show-tab-body');
-          } else {
-            angular.element(value.bodyElement).removeClass('show-tab-body');
-          }
-        });
+        controller.showActiveFunc(
+          controller.bodyObject,
+          'bodyIndex',
+          'bodyElement',
+          'show-tab-body',
+          attrs.index
+        );
 
-      })
+      });
     }
   }
 });
@@ -99,41 +122,13 @@ app.directive('ngTabsBody', function () {
     scope: false,
     restrict: 'EAC',
     require: '^ngTabs',
-    link: function (scope, element, attrs) {
+    link: function (scope, element, attrs, controller) {
 
-      function tabBodyIndex() {
-        return bodyIndex = ++p;
-      }
-      tabBodyIndex();
-      angular.element(element).addClass('tab-body')
+      controller.tabBodyIndex();
+      controller.initTabBody(element);
+      console.log(controller.bodyObject);
 
-      function initTabBody() {
-        bodyObject[bodyIndex] = {
-          bodyIndex: bodyIndex,
-          bodyElement: element
-        };
-      }
-
-      initTabBody();
+      angular.element(element).addClass('tab-body');
     }
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
