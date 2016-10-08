@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="password_box_app">
+
+<head>
+  <title>Password Box</title>
+  <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/passwordBox.css">
+</head>
+
+<body ng-controller="passwordBoxCtrl">
+  <script type="text/javascript" src="../scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../controllers/passwordBoxCtrl.js"></script>
+  <script type="text/javascript" src="../scripts/passwordBox.js"></script>
+
+  <ul class="password-list">
+    <li ng-bind="inputedValue[0]"></li>
+    <li ng-bind="inputedValue[1]"></li>
+    <li ng-bind="inputedValue[2]"></li>
+    <li ng-bind="inputedValue[3]"></li>
+    <li ng-bind="inputedValue[4]"></li>
+    <li ng-bind="inputedValue[5]"></li>
+  </ul>
+
+  <input class="password-input" type="text" ng-model="inputedValue"></input>
+
+
+</body>
+
+</html>
+
+
