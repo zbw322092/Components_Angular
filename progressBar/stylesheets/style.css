@@ -1,0 +1,21 @@
+.progress-bar {
+	width: 100%;
+	background-color: #ddd;
+	border-radius: 10px;
+}
+
+.progress-bar-taken {
+	position: relative;
+	height: 30px;
+	width: 50%;
+	background-color: green;
+	border-radius: 10px;
+}
+
+.percentage {
+	position: absolute;
+	color: white;
+	left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
