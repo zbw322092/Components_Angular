@@ -11,12 +11,14 @@
   <script type="text/javascript" src="../scripts/angular.min.js"></script>
   <script type="text/javascript" src="../controllers/progressBarCtrl.js"></script>
   <script type="text/javascript" src="../scripts/progressBar.js"></script>
+  
 
-  <div class="progress-bar">
-    <div class="progress-bar-taken">
-      <span class="percentage">50%</span>
-    </div>
-  </div>
+  <progress-bar 
+    percentage={{percentage}} 
+    bar-height="20px"
+    bar-width="20%"
+    show-percetage='false' >
+  </progress-bar>
 
 </body>
 
