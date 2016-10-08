@@ -11,7 +11,10 @@ app.directive('progressBar', function() {
 		},
 		templateUrl: 'progressBar.html',
 		link: function(scope, element, attrs) {
-
+			scope.style = {height:scope.barHeight, width:scope.barWidth};
+			scope.percentageBoolean = scope.showPercetage == 'false' ? false : true;
+			scope.percentageText = scope.percentage;
+			
 		}
 	}
 });
@@ -19,8 +22,8 @@ app.directive('progressBar', function() {
 app.run(['$templateCache', function($templateCache) {
 	$templateCache.put('progressBar.html',
 	  '<div class="progress-bar">' +
-	    '<div class="progress-bar-taken" style="height:{{barHeight}}; width:{{barWidth}}" >' +
-	      '<span class="percentage" ng-show={{showPercetage}} ng-bind="percentage"></span>' +
+	    '<div class="progress-bar-taken" ng-style="style" >' +
+	      '<span class="percentage" ng-show="percentageBoolean" ng-bind="percentageText"></span>' +
 	    '</div>' +
 	  '</div>'
 	);
