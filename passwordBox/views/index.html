@@ -12,11 +12,8 @@
   <script type="text/javascript" src="../controllers/passwordBoxCtrl.js"></script>
   <script type="text/javascript" src="../scripts/passwordBox.js"></script>
 
-  <ul class="password-list" ng-click="focusToInput()">
-    <li ng-repeat="passwordUnit in passwordDot track by $index" ng-bind="passwordDot[$index]"></li>
-  </ul>
-
-  <input class="password-input" type="text" ng-keyup="inputValueFunc()" ng-model="inputedValue" maxlength="6"></input>
+  
+  <div password-box></div>
 
 
 </body>
