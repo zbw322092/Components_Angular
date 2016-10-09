@@ -9,7 +9,8 @@ app.directive('passwordBox', ['$timeout', function($timeout) {
 	return {
 		restrict: 'AE',
 		scope: {
-			passwordRequest: '&'
+			passwordRequest: '&',
+			processing: '='
 		},
 		templateUrl: 'passwordBox.html',
 		link: function(scope, element, attrs) {
@@ -34,6 +35,7 @@ app.directive('passwordBox', ['$timeout', function($timeout) {
 				} else if (scope.inputedValue.length = 6) {
 					scope.passwordDot[5] = '*'
 					$timeout(function() {
+						scope.processing = true;
 						scope.passwordRequest({data: scope.inputedValue});
 					});
 				}
@@ -47,7 +49,7 @@ app.run(['$templateCache', function($templateCache) {
 	  '<ul class="password-list" ng-click="focusToInput()">' + 
 	    '<li ng-repeat="passwordUnit in passwordDot track by $index" ng-bind="passwordUnit"></li>' +
 	  '</ul>' +
-	  '<input class="password-input" type="password" ng-keyup="inputValueFunc()" ng-model="inputedValue" maxlength="6">' +
+	  '<input class="password-input" type="password" ng-disabled="processing" ng-keyup="inputValueFunc()" ng-model="inputedValue" maxlength="6">' +
 	  '</input>'
 	);
 }]);
