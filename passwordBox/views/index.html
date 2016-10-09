@@ -13,15 +13,10 @@
   <script type="text/javascript" src="../scripts/passwordBox.js"></script>
 
   <ul class="password-list" ng-click="focusToInput()">
-    <li ng-bind="inputedValue[0]"></li>
-    <li ng-bind="inputedValue[1]"></li>
-    <li ng-bind="inputedValue[2]"></li>
-    <li ng-bind="inputedValue[3]"></li>
-    <li ng-bind="inputedValue[4]"></li>
-    <li ng-bind="inputedValue[5]"></li>
+    <li ng-repeat="passwordUnit in passwordDot track by $index" ng-bind="passwordDot[$index]"></li>
   </ul>
 
-  <input class="password-input" type="text" ng-model="inputedValue" maxlength="6"></input>
+  <input class="password-input" type="text" ng-keyup="inputValueFunc()" ng-model="inputedValue" maxlength="6"></input>
 
 
 </body>

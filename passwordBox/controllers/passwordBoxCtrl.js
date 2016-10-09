@@ -14,6 +14,14 @@ app.controller('passwordBoxCtrl', ['$scope','$timeout', function ($scope, $timeo
 		inputDom[0].focus();
 	}
 
+	$scope.passwordDot = new Array('','','','','','');
+	
+	$scope.inputValueFunc = function() {
+		var passwordArray =  $scope.inputedValue.split("");
+		for (var i = 0; i < passwordArray.length; i++) {
+			$scope.passwordDot[i] = '*';
+		}
+	}
 
 }]);
 
