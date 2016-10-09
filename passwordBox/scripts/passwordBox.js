@@ -9,7 +9,7 @@ app.directive('passwordBox', ['$timeout', function($timeout) {
 	return {
 		restrict: 'AE',
 		scope: {
-
+			passwordRequest: '&'
 		},
 		templateUrl: 'passwordBox.html',
 		link: function(scope, element, attrs) {
@@ -27,14 +27,17 @@ app.directive('passwordBox', ['$timeout', function($timeout) {
 					for (var i = 0; i < passwordArray.length; i++) {
 						scope.passwordDot[i] = '*';
 					}
+					for (var n = passwordArray.length; n < 6; n++) {
+						scope.passwordDot[n] = '';
+					}
+
 				} else if (scope.inputedValue.length = 6) {
 					scope.passwordDot[5] = '*'
 					$timeout(function() {
-						window.alert('Input Done');
+						scope.passwordRequest({data: scope.inputedValue});
 					});
 				}
-			}			
-
+			}
 		}
 	}
 }]);
@@ -42,7 +45,7 @@ app.directive('passwordBox', ['$timeout', function($timeout) {
 app.run(['$templateCache', function($templateCache) {
 	$templateCache.put('passwordBox.html', 
 	  '<ul class="password-list" ng-click="focusToInput()">' + 
-	    '<li ng-repeat="passwordUnit in passwordDot track by $index" ng-bind="passwordDot[$index]"></li>' +
+	    '<li ng-repeat="passwordUnit in passwordDot track by $index" ng-bind="passwordUnit"></li>' +
 	  '</ul>' +
 	  '<input class="password-input" type="password" ng-keyup="inputValueFunc()" ng-model="inputedValue" maxlength="6">' +
 	  '</input>'
