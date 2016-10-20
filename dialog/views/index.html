@@ -15,32 +15,6 @@
 
   <script type="text/javascript">
 
-    
-    var Student = function(name, gender) {
-      this.name = name;
-      this.gender = gender;
-    }
-
-    var DetailedInfo = function() {};
-
-    DetailedInfo.prototype.printInfo = function(height, age) {
-      console.log('I am ' + age + ' years old and I am ' + height + 'cm');
-    }
-
-    DetailedInfo.prototype.university = function(uni) {
-      console.log('I am studying in ' + uni);
-    }
-
-    Student.prototype = new DetailedInfo();
-    var a = new DetailedInfo();
-
-    console.log(Student.prototype);
-
-    var bowen = new Student('Bowen', '23');
-    console.log(bowen);
-    console.log(bowen.name);
-
-    console.log(bowen.printInfo(183, 23));
 
 
   </script>
