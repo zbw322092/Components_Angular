@@ -1,3 +1,30 @@
+.display-area {
+	position: relative;
+	height: 200px;
+	width: 200px;
+	border: 1px solid orange;
+	left: 200px;
+	top: 200px;
+	overflow: hidden;	
+}
+
 li {
 	display: block;
+	text-align: center;
+	height: 20px;
+
+}
+
+.slide-container {
+	/*animation: moveUp 2s infinite;*/
+}
+
+@keyframes moveUp {
+	from {
+		margin-top: 0;
+	}
+
+	to {
+		margin-top: -100px;
+	}
 }
