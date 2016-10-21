@@ -12,24 +12,4 @@ li {
 	display: block;
 	text-align: center;
 	height: 20px;
-
-}
-
-.slide-container :first-child {
-	animation: moveUp 1s infinite;
-}
-
-.slide-container {
-	/*animation: moveUp 2s infinite;*/
-	
-}
-
-@keyframes moveUp {
-	from {
-		margin-top: 0;
-	}
-
-	to {
-		margin-top: -20px;
-	}
 }
