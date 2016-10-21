@@ -3,6 +3,7 @@ var app = angular.module('slide_show_app', []);
 app.controller('slideShowCtrl', ['$scope', function ($scope) {
 
 	var elementWarpper = angular.element;
+	var slideGroup = 3
 
 	// jquery
 	var $containerDom = $(".display-area");
@@ -11,22 +12,24 @@ app.controller('slideShowCtrl', ['$scope', function ($scope) {
 
 	var containerHeight = $containerDom.height(); // 这边用height()最好，因为css()返回的是一个string,难于计算
 	console.log(containerHeight);
-	var unitHeight = slideUnits.eq(0).height(); // 一开始这里写的是slideUnits[0].height()，结果报错，因为slideUnits[0]不是一个jq的DOM object.
+	var unitHeight = slideUnits.eq(0).height(); // 一开始这里写的是slideUnits[0].height()，结果报错
 	console.log(unitHeight);
 
-	var maxUnitsNum = Math.ceil(containerHeight/unitHeight);
-	console.log(maxUnitsNum);
-
-	var moreUnits = maxUnitsNum/unitsLength;
-
-
-	for (var i = 1; i <= moreUnits; i++) {
-		$containerDom.append($containerDom.find('.slide-unit').clone());
+	var remainNum = unitsLength % slideGroup;
+	var a = unitsLength, b = slideGroup, c = a % b;
+	while (c != 0) {
+		a = b;
+		b = c;
+		c = a % b;
 	}
+
+	var leastCommonMultiple = unitsLength * slideGroup / b;
+	console.log(leastCommonMultiple);
+
 
 
 	function slideAnimation() {
-		$containerDom.find('.slide-unit:first').animate({marginTop: '-20px'}, 1000, function() {			
+		$containerDom.find('.slide-unit:first').animate({marginTop: - unitHeight * slideGroup + 'px'}, 1000, function() {			
 			$(this).appendTo($containerDom).css('marginTop', 0);
 			slideAnimation()
 		});
