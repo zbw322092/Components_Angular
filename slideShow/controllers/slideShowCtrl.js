@@ -3,7 +3,7 @@ var app = angular.module('slide_show_app', []);
 app.controller('slideShowCtrl', ['$scope', function ($scope) {
 
 	var elementWarpper = angular.element;
-	var slideGroup = 3
+	var slideGroup = 3;
 
 	// jquery
 	var $containerDom = $(".display-area");
@@ -25,6 +25,24 @@ app.controller('slideShowCtrl', ['$scope', function ($scope) {
 
 	var leastCommonMultiple = unitsLength * slideGroup / b;
 	console.log(leastCommonMultiple);
+
+	var multipleTimes = leastCommonMultiple / unitsLength;
+	for (var i = 1; i < multipleTimes; i++) {
+		$containerDom.append(slideUnits.clone());
+	}
+
+	var maxUnits = Math.ceil(containerHeight / unitHeight);
+	var maxTimes = maxUnits / leastCommonMultiple;
+
+	console.log(maxUnits, maxTimes);
+
+	for (var n = 1; n < maxTimes; n++) {
+		$containerDom.append(slideUnits.clone());
+	}
+
+	console.log($containerDom.find('.slide-unit').length);
+	
+
 
 
 
