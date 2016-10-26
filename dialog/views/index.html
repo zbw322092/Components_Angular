@@ -7,18 +7,17 @@
   <link rel="stylesheet" type="text/css" href="../stylesheets/dialog.css">
 </head>
 
-<body>
+<body ng-controller="dialogCtrl">
   <script type="text/javascript" src="../scripts/angular.min.js"></script>
   <script type="text/javascript" src="../controllers/dialogCtrl.js"></script>
   <script type="text/javascript" src="../scripts/ngDialog.js"></script>
 
+	
+	<button ng-click="showDialog = true">Click to Show Dialog</button>
 
-  <script type="text/javascript">
-
-
-
-  </script>
-
+	<div ng-show="showDialog" class="ngdialog">
+		<div class="dialog-overlay"></div>
+	</div>
 
 
 </body>
