@@ -1,5 +1,6 @@
 .ngdialog {
-
+	position: fixed;
+	z-index: 10000;
 }
 
 .dialog-overlay {
@@ -42,7 +43,6 @@
 .bottom-right {
 	border-left: 0.5px solid #ccc;
 }
-
 
 
 

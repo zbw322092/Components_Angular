@@ -15,7 +15,13 @@ app.controller('dialogCtrl', [
 	) {
 
 
+		$scope.cancel = function() {
+			$scope.showDialog = false;
+		}
 
+		$scope.confirm = function() {
+			location.href = 'http://cn.bing.com/';
+		}
 
 
 }]);
