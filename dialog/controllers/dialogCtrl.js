@@ -6,12 +6,18 @@ app.controller('dialogCtrl', [
 	'$window', 
 	'$location',
 	'$document',
+	'userID',
+	'apiToken',
+	'launchIt',
 	function (
 		$scope, 
 		$rootScope, 
 		$window,
 		$location,
-		$document
+		$document,
+		userID,
+		apiToken,
+		launchIt
 	) {
 
 
@@ -22,6 +28,13 @@ app.controller('dialogCtrl', [
 		$scope.confirm = function() {
 			location.href = 'http://cn.bing.com/';
 		}
+
+		console.log(userID);
+
+		console.log(apiToken);
+
+		console.log(launchIt);
+		launchIt.launchRocket();
 
 
 }]);
