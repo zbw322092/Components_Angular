@@ -12,17 +12,88 @@
 			cache: true
 		}
 
-		this.$get = ['$q', '$http', '$templateCache', function($q, $http, $templateCache) {
+		var $el = angular.element;
 
+		this.$get = ['$document', '$q', '$http', '$templateCache', function($document, $q, $http, $templateCache) {
+			var $body = $document.find('body');
 
 			var privateMethods = {
 
 			};
 
 			var publicMethods = {
-				open: {
+				open: function(opts) {
+					// 这样做的目的是在闭包中，this不在指向调用外层函数的object，为了解决这个问题，将外层函数的this赋值给一个变量。
+					var self = this;
+					var $dialog, $dialogParent;
 
 					var options = angular.copy(defaults);
+					opts = opts || {};
+					angular.extend(options, opts);
+
+					var scope = angular.isObject(options.scope) ? options.scope.$new() : $rootScope.$new();
+
+					$q.when(loadTemplate(options.template || options.templateUrl))
+						.then(function(template) {
+							$templateCahe.put(options.template || options.templateUrl, template);
+
+							// 是否需要显示close按钮
+							if (options.showClose) {
+								template += '<div class="ngdialog-close"></div>';
+							}
+
+							self.$result = $dialog = $el('<div id="ngdialog" class="ngdialog"></div>');
+							// 是否需要显示overlay
+							$dialog.html((options.overlay ? 
+								'<div class="ngdialog-overlay"></div><div class="ngdialog-content">' + template + '</div>':
+								'<div class="ngdialog-content">' + template + '</div>'
+							));
+
+							if (options.className) {
+								$dialog.addClass(options.className);
+							}
+
+							// 这个规定这个弹框的父级是谁
+							if (options.appendTo && angular.isString(options.appendTo)) {
+								$dialogParent = $el(document.querySelector(options.appendTo));
+							} else {
+								$dialogParent = $body;
+							}
+
+							// 规定是否为弹框按钮关闭的时候设置callback。主要是一些类型判断。
+							if (options.preCloseCallback) {
+								var preCloseCallback;
+
+								if (angular.isFunction(options.preCloseCallback)) {
+									preCloseCallback = options.preCloseCallback;
+								} else if (angular.isString(options.preCloseCallback)) {
+									if (scope) {
+										if (angular.isFunction(scope[options.preCloseCallback])) {
+											preCloseCallback = scope[options.preCloseCallback];
+										} else if (scope.$parent && angular.isFunction(scope.$parent[options.preCloseCallback])) {
+											preCloseCallback = scope.$parent[options.preCloseCallback];
+										} else if ($rootScope && angular.isFunction(%rootScope[options.preCloseCallback])) {
+											preCloseCallback = $rootScope[options.preCloseCallback];
+										}
+									}
+								}
+
+								if (preCloseCallback) {
+									$dialog.data('$ngDialogPreCloseCallBack', preCloseCallback);
+								}
+							}
+
+
+
+
+
+
+
+
+
+
+
+						});
 
 
 					function loadTemplateUrl(template, config) {

@@ -6,18 +6,12 @@ app.controller('dialogCtrl', [
 	'$window', 
 	'$location',
 	'$document',
-	'userID',
-	'apiToken',
-	'launchIt',
 	function (
 		$scope, 
 		$rootScope, 
 		$window,
 		$location,
-		$document,
-		userID,
-		apiToken,
-		launchIt
+		$document
 	) {
 
 
@@ -29,13 +23,32 @@ app.controller('dialogCtrl', [
 			location.href = 'http://cn.bing.com/';
 		}
 
-		console.log(userID);
+		$scope.watcherOne = 'It is a watcher';
 
-		console.log(apiToken);
 
-		console.log(launchIt);
-		launchIt.launchRocket();
+		function thisFunc() {
+			console.log('hi there');
+		}
 
+		thisFunc();
+
+		console.log($rootScope);
+		console.log($rootScope.$id);
+		console.log($rootScope.$parent); // null
+		
+		console.log($scope);
+		console.log($scope.$parent === $rootScope); // true
+
+		$scope.watcherOne = 'It is a watcher';
+
+		var childScope = $scope.$new();
+		console.log(childScope);
+		console.log(childScope.watcherOne); // 'It is a watcher'
+		console.log(childScope.$parent === $scope); // true
+		console.log(childScope.$parent === $rootScope); // false
+
+		console.log(childScope.confirm);
+		console.log(typeof childScope.confirm);
 
 }]);
 
