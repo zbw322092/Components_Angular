@@ -1,63 +1,49 @@
 var app = angular.module('dialog_app', []);
 
+
 app.controller('dialogCtrl', [
 	'$scope', 
 	'$rootScope', 
 	'$window', 
 	'$location',
 	'$document',
+	'$templateCache',
+	'ngdialog',
 	function (
 		$scope, 
 		$rootScope, 
 		$window,
 		$location,
-		$document
+		$document,
+		$templateCache,
+		ngdialog
 	) {
 
+		ngdialog.open({
+			template:   
+			'<div class="pop-dialog">' +
+  		'	<div class="pop-dialog-button"></div>' +
+  		'</div>',
+    	plain: true,
+    	showClose: true,
+    	overlay: true
+		});
 
-		$scope.cancel = function() {
-			$scope.showDialog = false;
-		}
-
-		$scope.confirm = function() {
-			location.href = 'http://cn.bing.com/';
-		}
-
-		$scope.watcherOne = 'It is a watcher';
-
-
-		function thisFunc() {
-			console.log('hi there');
-		}
-
-		thisFunc();
-
-		console.log($rootScope);
-		console.log($rootScope.$id);
-		console.log($rootScope.$parent); // null
-		
-		console.log($scope);
-		console.log($scope.$parent === $rootScope); // true
-
-		$scope.watcherOne = 'It is a watcher';
-
-		var childScope = $scope.$new();
-		console.log(childScope);
-		console.log(childScope.watcherOne); // 'It is a watcher'
-		console.log(childScope.$parent === $scope); // true
-		console.log(childScope.$parent === $rootScope); // false
-
-		console.log(childScope.confirm);
-		console.log(typeof childScope.confirm);
 
 }]);
 
 
-
-
-
-
-
+app.run(['$templateCache', function ($templateCache) {
+  $templateCache.put('windowAlert.html',
+    '<div touch-scrolling class="alert-body" ng-class="[bodyStyle]">' +
+    ' <div ng-click="closeThisDialog(0)" class="pop-close"></div>' +
+    ' <div class="coupon-unit" ng-repeat="couponUnit in couponList track by $index" ng-class="[couponUnit]">' +
+    '   <span class="clickable-area" ng-click="checkInCouponDirectly()"></span>' +
+    ' </div>' +
+    ' <div class="alert-button" ng-class="[buttonStyle]" ng-click="redirect(distination)"></div>' +
+    '</div>'
+  );
+}]);
 
 
 

@@ -1,9 +1,4 @@
-(function(m) {
-
-
-
-
-	m.provider('ngdialog', function() {
+	app.provider('ngdialog', function() {
 		// 因为我们想这套provider被用于构建各种样式的dialog，那么这意味着我们需要各种样式的template，
 		// 那么这就涉及到我们要去取template这个步骤，而这个步骤是异步的。
 
@@ -14,11 +9,17 @@
 
 		var $el = angular.element;
 
-		this.$get = ['$document', '$q', '$http', '$templateCache', function($document, $q, $http, $templateCache) {
+		this.$get = ['$document', '$q', '$http', '$templateCache','$rootScope', function($document, $q, $http, $templateCache, $rootScope) {
 			var $body = $document.find('body');
 
 			var privateMethods = {
-
+				// 当我们按下一个按键的时候，会触发一个事件，这个event对象会有一个keyCode属性
+				onKeyDown: function(event) {
+					if (event.keyCode === 27) {
+						// some code here -- close dialog
+						window.alert('close the dialog');
+					}
+				}
 			};
 
 			var publicMethods = {
@@ -35,7 +36,7 @@
 
 					$q.when(loadTemplate(options.template || options.templateUrl))
 						.then(function(template) {
-							$templateCahe.put(options.template || options.templateUrl, template);
+							$templateCache.put(options.template || options.templateUrl, template);
 
 							// 是否需要显示close按钮
 							if (options.showClose) {
@@ -49,6 +50,8 @@
 								'<div class="ngdialog-content">' + template + '</div>'
 							));
 
+							console.log($dialog[0]);
+
 							if (options.className) {
 								$dialog.addClass(options.className);
 							}
@@ -60,6 +63,7 @@
 								$dialogParent = $body;
 							}
 
+							$dialogParent.append($dialog);
 							// 规定是否为弹框按钮关闭的时候设置callback。主要是一些类型判断。
 							if (options.preCloseCallback) {
 								var preCloseCallback;
@@ -72,7 +76,7 @@
 											preCloseCallback = scope[options.preCloseCallback];
 										} else if (scope.$parent && angular.isFunction(scope.$parent[options.preCloseCallback])) {
 											preCloseCallback = scope.$parent[options.preCloseCallback];
-										} else if ($rootScope && angular.isFunction(%rootScope[options.preCloseCallback])) {
+										} else if ($rootScope && angular.isFunction($rootScope[options.preCloseCallback])) {
 											preCloseCallback = $rootScope[options.preCloseCallback];
 										}
 									}
@@ -83,13 +87,29 @@
 								}
 							}
 
+							// 是否通过ESC键来关闭窗口
+							if (options.closeByEscape) {
+								$body.bind('keydown', privateMethods.onKeyDown);
+							}
 
+							// 是否在url发生变化的时候关闭窗口
+							// 这个时候用到一个$rootScope的一个事件，$stateChangeStart
+							if (options.closeByNavigation) {
+								$rootScope.$on('$stateChangeStart', function() {
+									// some code here
+								});
+							}
 
+							closeByDocumentHandler = function(event) {
+								var isOverlay = options.closeByDocument ? $el(event.target).hasClass('ngdialog-overlay') : false;
+								var isCloseBtn = $el(event.target).hasClass('ngdialog-close');
 
+								if (isOverlay || isCloseBtn) {
+									// some code here
+								}
+							};
 
-
-
-
+							$dialog.bind('click', closeByDocumentHandler);
 
 
 
@@ -130,14 +150,4 @@
 			return publicMethods;
 
 		}];
-
-
-
-
-
-	});
-
-
-
-
-})(app);
+	});	
