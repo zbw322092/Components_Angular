@@ -8,17 +8,47 @@
 // 5. 用户在关闭dialog之后有个回调，执行回调函数。
 
 app.provider('ngDialog', function() {
+	var $el = angular.element;
 	var defaultConfig = {
 		showClose: false,
 		showOverlay: true,
 		closeByOverlay: true
 	}
-	this.$get = ['$window', function($window) {
+	this.$get = ['$window', '$q', '$http', '$templateCache', function($window, $q, $http, $templateCache) {
 
 		var publicMethods = {
 			open: function(options) {
+				optionsConfig = angular.isObject(options) ? angular.extend(defaultConfig, options) : defaultConfig;
+				$q.when(loadCustomizedTemplate(optionsConfig.template || optionsConfig.templateUrl))
+					.then(function(template) {
+						console.log(template);
+					})
+					.catch();
 
-				angular.extend(defaultConfig, options);
+				function loadCustomizedTemplate(template) {
+					// load template有几种情况
+					// 1. 用户填写的是plain，然后template属性是个string
+					// 2. 用户填写的是url，然后templateUrl属性是个string，指向一个template
+					// 		2.1 这个template加载不使用cache
+					// 		2.2 这个template加载使用cache，优先从$templateCache里面取
+					if (optionsConfig.plain == true && angular.isString(template)) {
+						return template;
+					} else if (optionsConfig.plain == false && angular.isString(template) && optionsConfig.cache == false) {
+						loadCustomizedTemplateUrl(template, {cache: false});
+					} else if (optionsConfig.plain == false && angular.isString(template) && optionsConfig.cache != false) {
+						return $templateCache.get(template) || loadCustomizedTemplateUrl(template, {cache: true});
+					}
+				}
+
+				function loadCustomizedTemplateUrl(url, config) {
+					$http.get(url, config || {})
+						.then(function(res) {
+							return res.data || '';
+						});
+				}
+
+
+
 
 
 			}
