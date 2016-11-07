@@ -19,7 +19,42 @@
 						// some code here -- close dialog
 						window.alert('close the dialog');
 					}
+				},
+				closeDialog: function($dialog, value) {
+					if (angular.isString($dialog)) {
+						$dialog = $el(document.getElementById($dialog));
+					}
+
+					var preCloseCallback = $dialog.data('$ngDialogPreCloseCallBack');
+
+					if (preCloseCallback && angular.isFunction(preCloseCallback)) {
+						var preCloseCallbackResult = preCloseCallback.call($dialog, value);
+						if (angular.isObject(preCloseCallbackResult)) {
+							if (preCloseCallbackResult.closePromise) {
+
+							} else {
+								preCloseCallbackResult.then(function() {
+									// 这个写了一个intermediary function，为了层级的简化
+									privateMethods.performCloseDialog($dialog, value);
+								}, function() {
+									return;
+								});
+							}
+
+						} else if (preCloseCallbackResult !== false) {
+							privateMethods.performCloseDialog($dialog, value);
+						}
+					} else {
+
+					}
+				},
+				performCloseDialog: function($dialog, value) {
+					$dialog.remove();
 				}
+
+
+
+
 			};
 
 			var publicMethods = {
@@ -50,6 +85,8 @@
 								'<div class="ngdialog-content">' + template + '</div>'
 							));
 
+							console.log($dialog);
+							console.log(typeof $dialog);
 							console.log($dialog[0]);
 
 							if (options.className) {
@@ -87,6 +124,8 @@
 								}
 							}
 
+							console.log($dialog.data('$ngDialogPreCloseCallBack'));
+
 							// 是否通过ESC键来关闭窗口
 							if (options.closeByEscape) {
 								$body.bind('keydown', privateMethods.onKeyDown);
@@ -106,6 +145,7 @@
 
 								if (isOverlay || isCloseBtn) {
 									// some code here
+									privateMethods.closeDialog($dialog);
 								}
 							};
 
@@ -147,6 +187,7 @@
 
 			};
 
+			// 没有这个return的话，引用publicMethods下面的方法会报错，因为找不到（undefined）
 			return publicMethods;
 
 		}];

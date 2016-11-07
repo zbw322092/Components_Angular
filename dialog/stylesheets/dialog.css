@@ -1,9 +1,13 @@
 .ngdialog {
 	position: fixed;
 	z-index: 10000;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
-.dialog-overlay {
+.ngdialog-overlay {
 	position: fixed;
   top: 0;
   bottom: 0;
@@ -12,37 +16,37 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.dialog-body {
-	position: fixed;
-	max-width: 240px;
-	max-height: 120px;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #f6f6f6;
-	border-radius: 8px;
-	color: #353535;
-}
+// .dialog-body {
+// 	position: fixed;
+// 	max-width: 240px;
+// 	max-height: 120px;
+// 	top: 50%;
+// 	left: 50%;
+// 	transform: translate(-50%, -50%);
+// 	background-color: #f6f6f6;
+// 	border-radius: 8px;
+// 	color: #353535;
+// }
 
-.dialog-header {
-	font-size: 16px;
-	text-align: center;
-	padding: 20px 10px 20px 10px;
-	border-bottom: 0.5px solid #ccc;
-}
+// .dialog-header {
+// 	font-size: 16px;
+// 	text-align: center;
+// 	padding: 20px 10px 20px 10px;
+// 	border-bottom: 0.5px solid #ccc;
+// }
 
-.bottom-left,
-.bottom-right {
-	display: inline-block;
-	width: 49%;
-	border: none;
-	background-color: transparent;
-	padding: 10px 5px 10px 5px;
-}
+// .bottom-left,
+// .bottom-right {
+// 	display: inline-block;
+// 	width: 49%;
+// 	border: none;
+// 	background-color: transparent;
+// 	padding: 10px 5px 10px 5px;
+// }
 
-.bottom-right {
-	border-left: 0.5px solid #ccc;
-}
+// .bottom-right {
+// 	border-left: 0.5px solid #ccc;
+// }
 
 
 

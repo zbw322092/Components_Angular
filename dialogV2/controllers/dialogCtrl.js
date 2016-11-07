@@ -2,13 +2,13 @@ var app = angular.module('dialog_app', []);
 
 
 app.controller('dialogCtrl', [
-	'$scope', 
+	'$scope',
 	'$rootScope', 
 	'$window', 
 	'$location',
 	'$document',
 	'$templateCache',
-	'ngdialog',
+	'ngDialog',
 	function (
 		$scope, 
 		$rootScope, 
@@ -16,27 +16,16 @@ app.controller('dialogCtrl', [
 		$location,
 		$document,
 		$templateCache,
-		ngdialog
+		ngDialog
 	) {
-		// $scope.showDialog = function() {
-		// 	ngdialog.open({
-		// 		template:   
-		// 		'<div class="pop-dialog">' +
-	 //  		'	<div class="pop-dialog-button"></div>' +
-	 //  		'</div>',
-	 //    	plain: true,
-	 //    	showClose: true,
-	 //    	overlay: true,
-	 //    	preCloseCallback: dialogCallbackFunction,
-	 //    	closeByDocument: true
-		// 	});
-		// }
 
-		// function dialogCallbackFunction() {
-		// 	console.log('Dialog Closed');
-		// }
+		ngDialog.open({
+			// showClose: 'Bowen'
+		});
 
-}]);
+
+	}
+]);
 
 
 // app.run(['$templateCache', function ($templateCache) {
