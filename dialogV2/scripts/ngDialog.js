@@ -22,6 +22,21 @@ app.provider('ngDialog', function() {
 				$q.when(loadCustomizedTemplate(optionsConfig.template || optionsConfig.templateUrl))
 					.then(function(template) {
 						console.log(template);
+
+						if(optionsConfig.showClose) {
+							template += '<div class="dialog-close"></div>';
+						}
+
+						var $dialog = $el('<div class="ngdialog"></div>');
+						$dialog = optionsConfig.showOverlay ?
+							$dialog.html('<div class="dialog-overlay"></div><div class="dialog-content">' + template + '</div>') :
+							$dialog.html('<div class="dialog-content">' + template + '</div>');
+
+						console.log($dialog[0]);
+
+
+
+
 					})
 					.catch();
 
@@ -44,6 +59,9 @@ app.provider('ngDialog', function() {
 					$http.get(url, config || {})
 						.then(function(res) {
 							return res.data || '';
+						})
+						.catch(function(err) {
+							return new Error('template error: ' + err);
 						});
 				}
 

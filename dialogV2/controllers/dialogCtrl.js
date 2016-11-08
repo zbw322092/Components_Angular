@@ -23,6 +23,7 @@ app.controller('dialogCtrl', [
 
 		ngDialog.open({
 			showClose: true,
+			showOverlay: true,
 			plain: false,
 			// template: '<div class="test">test dom element</div>'
 			templateUrl: 'windowAlert.html',
