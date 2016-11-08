@@ -37,6 +37,16 @@ app.provider('ngDialog', function() {
 
 						$body.append($dialog[0]);
 
+						// 这里根据设置来决定点击overlay是否会关闭dialog。
+						// 一个比较容易想到的方法是在上面的DOM结构上面加上ng-click，然后在函数中判断设置是否为true来执行操作
+						// 上面的方法容易想到符合直觉，但是会使得DOM结构上面的东西变多，现在下面使用另外一种方法来实现一次。
+						if (optionsConfig.closeByOverlay) {
+							$dialog.on('click', function(event) {
+								if ($el(event.target).hasClass('dialog-overlay')) {
+									$dialog.remove();
+								}
+							});
+						}
 
 
 
