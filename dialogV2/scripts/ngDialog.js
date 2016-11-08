@@ -36,7 +36,7 @@ app.provider('ngDialog', function() {
 						console.log($dialog[0]);
 
 						$body.append($dialog[0]);
-						
+
 
 
 
