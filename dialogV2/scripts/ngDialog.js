@@ -9,6 +9,7 @@
 
 app.provider('ngDialog', function() {
 	var $el = angular.element;
+	var $body = $el(document.querySelector('body'));
 	var defaultConfig = {
 		showClose: false,
 		showOverlay: true,
@@ -33,6 +34,11 @@ app.provider('ngDialog', function() {
 							$dialog.html('<div class="dialog-content">' + template + '</div>');
 
 						console.log($dialog[0]);
+
+						$body.append($dialog[0]);
+						
+
+
 
 
 
