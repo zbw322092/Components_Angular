@@ -24,7 +24,28 @@ app.provider('ngDialog', function() {
 				var closeCallback = $dialog.data('dialogCallbackFunc');
 				$dialog.unbind('click');
 				$el($window).unbind('keydown');
-				$dialog.remove();
+				
+
+				if (angular.isFunction(closeCallback)) {
+					var callbackResult = closeCallback();
+					if (angular.isObject(callbackResult)) {
+						callbackResult.then(function() {
+							console.log('object here');
+							$dialog.remove();
+						})
+						.catch(function() {
+							console.log('return here');
+							return;
+						});
+					} else if (callbackResult !== false) {
+						console.log('not false here');
+						$dialog.remove();
+					}					
+				} else {
+					console.log('not function here');
+					$dialog.remove();
+				}
+
 			},
 
 

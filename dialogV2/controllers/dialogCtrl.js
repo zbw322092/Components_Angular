@@ -35,7 +35,12 @@ app.controller('dialogCtrl', [
 		}
 
 		function dialogFunc() {
-			console.log('hi there');
+			// return setTimeout(function() {
+			// 	return console.log('hi there');
+			// }, 1000);
+			return {
+				name: 'Bowen'
+			}
 		}
 
 
