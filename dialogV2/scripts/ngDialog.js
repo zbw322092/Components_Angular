@@ -13,7 +13,8 @@ app.provider('ngDialog', function() {
 	var defaultConfig = {
 		showClose: false,
 		showOverlay: true,
-		closeByOverlay: true
+		closeByOverlay: true,
+		closeByESC: true
 	}
 	this.$get = ['$window', '$q', '$http', '$templateCache', function($window, $q, $http, $templateCache) {
 
@@ -48,6 +49,26 @@ app.provider('ngDialog', function() {
 							});
 						}
 
+						$dialog.on('click', function(event) {
+							if ($el(event.target).hasClass('dialog-close')) {
+								$dialog.remove();
+							}
+						});
+
+
+						// close by ESC
+						if (optionsConfig.closeByESC) {
+							$el($window).on('keydown', function(event) {
+								if (event.which === 27) {
+									$dialog.remove();
+								}
+							});							
+						}
+
+
+
+
+
 
 
 
@@ -80,8 +101,6 @@ app.provider('ngDialog', function() {
 							return new Error('template error: ' + err);
 						});
 				}
-
-
 
 
 
