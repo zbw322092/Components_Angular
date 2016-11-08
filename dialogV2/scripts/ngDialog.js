@@ -19,6 +19,15 @@ app.provider('ngDialog', function() {
 	this.$get = ['$window', '$q', '$http', '$templateCache', function($window, $q, $http, $templateCache) {
 
 		var publicMethods = {
+
+			closeDialog: function($dialog) {
+				var closeCallback = $dialog.data('dialogCallbackFunc');
+				$dialog.unbind('click');
+				$el($window).unbind('keydown');
+				$dialog.remove();
+			},
+
+
 			open: function(options) {
 				optionsConfig = angular.isObject(options) ? angular.extend(defaultConfig, options) : defaultConfig;
 				$q.when(loadCustomizedTemplate(optionsConfig.template || optionsConfig.templateUrl))
@@ -42,27 +51,35 @@ app.provider('ngDialog', function() {
 						// 一个比较容易想到的方法是在上面的DOM结构上面加上ng-click，然后在函数中判断设置是否为true来执行操作
 						// 上面的方法容易想到符合直觉，但是会使得DOM结构上面的东西变多，现在下面使用另外一种方法来实现一次。
 						if (optionsConfig.closeByOverlay) {
-							$dialog.on('click', function(event) {
+							$dialog.bind('click', function(event) {
 								if ($el(event.target).hasClass('dialog-overlay')) {
-									$dialog.remove();
+									console.log(optionsConfig.preCloseCallback);
+									publicMethods.closeDialog($dialog);
 								}
 							});
 						}
 
-						$dialog.on('click', function(event) {
+						$dialog.bind('click', function(event) {
 							if ($el(event.target).hasClass('dialog-close')) {
-								$dialog.remove();
+								console.log(optionsConfig.preCloseCallback);
+								publicMethods.closeDialog($dialog);
 							}
 						});
 
 
 						// close by ESC
 						if (optionsConfig.closeByESC) {
-							$el($window).on('keydown', function(event) {
+							$el($window).bind('keydown', function(event) {
 								if (event.which === 27) {
-									$dialog.remove();
+									console.log(optionsConfig.preCloseCallback);
+									publicMethods.closeDialog($dialog);
 								}
 							});							
+						}
+
+						if (angular.isFunction(optionsConfig.preCloseCallback)) {
+							$dialog.data('dialogCallbackFunc', optionsConfig.preCloseCallback);
+							console.log($dialog.data('dialogCallbackFunc'));
 						}
 
 

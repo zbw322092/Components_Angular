@@ -28,11 +28,15 @@ app.controller('dialogCtrl', [
 				plain: false,
 				// template: '<div class="test">test dom element</div>'
 				templateUrl: 'windowAlert.html',
-				cache: true
+				cache: true,
+				closeByOverlay: false,
+				preCloseCallback: dialogFunc
 			});
 		}
 
-
+		function dialogFunc() {
+			console.log('hi there');
+		}
 
 
 
